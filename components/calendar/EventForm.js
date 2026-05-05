@@ -404,7 +404,7 @@ export default function EventForm({
                           <SubChip
                             key={sub.id}
                             $isActive={isSubActive}
-                            $color={category.color}
+                            $color={sub.color || category.color}
                             onClick={() => {
                               const updated = isSubActive
                                 ? form.categories.filter((id) => id !== sub.id)
