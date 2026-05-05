@@ -308,7 +308,10 @@ export default function EventDetail({ event, onClose, onEdit, onDelete }) {
                   <Chip $color={category.color}>{category.label}</Chip>
                 )}
                 {activeSubs.map((sub) => (
-                  <SubChip key={sub.id} $color={category.color}>
+                  <SubChip
+                    key={sub.id}
+                    $color={sub.color ? sub.color : category.color}
+                  >
                     {sub.label}
                   </SubChip>
                 ))}

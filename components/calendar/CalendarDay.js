@@ -73,6 +73,26 @@ function isToday(date) {
     .isSame(dayjs().tz("Europe/Berlin"), "day");
 }
 
+function getEventColor(categories = []) {
+  if (!categories.length) return "#24dda6";
+
+  for (const id of categories) {
+    // Erst in Subkategorien suchen
+    for (const cat of CATEGORIES) {
+      const sub = cat.subcategories?.find((s) => s.id === id);
+      if (sub?.color) return sub.color;
+    }
+  }
+
+  // Dann in Hauptkategorien
+  for (const id of categories) {
+    const cat = CATEGORIES.find((c) => c.id === id);
+    if (cat?.color) return cat.color;
+  }
+
+  return "#24dda6";
+}
+
 const CalendarDay = memo(function CalendarDay({
   day,
   events,
@@ -99,10 +119,7 @@ const CalendarDay = memo(function CalendarDay({
             e.stopPropagation();
             onEventClick(event);
           }}
-          $color={
-            CATEGORIES.find((cat) => cat.id === event.categories?.[0])?.color ||
-            "#24dda6"
-          }
+          $color={getEventColor(event.categories)}
         >
           {dayjs(event.start).tz("Europe/Berlin").format("HH:mm")} {event.title}
         </Event>

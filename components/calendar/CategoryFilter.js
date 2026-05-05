@@ -220,7 +220,7 @@ export default function CategoryFilter({
                     key={sub.id}
                     type="button"
                     $isActive={selectedCategories.includes(sub.id)}
-                    $color={category.color}
+                    $color={sub.color || category.color}
                     onClick={() => onToggle(sub.id)}
                   >
                     {sub.label}
