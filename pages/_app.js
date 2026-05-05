@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/de";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import Navigation from "@/components/Navigation";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -31,6 +32,7 @@ export default function App({
       <GlobalStyle />
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>
+          <Navigation />
           <Component {...pageProps} />
         </SWRConfig>
       </SessionProvider>

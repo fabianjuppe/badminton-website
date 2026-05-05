@@ -24,11 +24,10 @@ export default function MannschaftenPage() {
         src="https://badminton-bbv.de/liga2/backend/widget.php"
         data-url="https://badminton-bbv.de/liga2/backend"
         className="bbv-script"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
 
       <Title>Mannschaften 2025/2026</Title>
-
       <TeamGrid teams={TEAMS} />
     </Wrapper>
   );

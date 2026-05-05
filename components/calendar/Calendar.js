@@ -35,7 +35,7 @@ const EMPTY_FORM = {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100dvh;
+  height: calc(100dvh - 48px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
