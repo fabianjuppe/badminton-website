@@ -99,6 +99,10 @@ export default function Navigation() {
           <NavLink
             href="/mannschaften"
             $isActive={router.pathname === "/mannschaften"}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/mannschaften";
+            }}
           >
             Mannschaften
           </NavLink>
@@ -121,7 +125,11 @@ export default function Navigation() {
         <NavLink
           href="/mannschaften"
           $isActive={router.pathname === "/mannschaften"}
-          onClick={() => setIsOpen(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = "/mannschaften";
+            setIsOpen(false);
+          }}
         >
           Mannschaften
         </NavLink>
