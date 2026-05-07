@@ -1,7 +1,7 @@
 import { CATEGORIES } from "@/lib/categories";
 import dayjs from "dayjs";
 import styled, { css } from "styled-components";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 const Day = styled.div`
   border-radius: 4px;
@@ -77,14 +77,12 @@ function getEventColor(categories = []) {
   if (!categories.length) return "#24dda6";
 
   for (const id of categories) {
-    // Erst in Subkategorien suchen
     for (const cat of CATEGORIES) {
       const sub = cat.subcategories?.find((s) => s.id === id);
       if (sub?.color) return sub.color;
     }
   }
 
-  // Dann in Hauptkategorien
   for (const id of categories) {
     const cat = CATEGORIES.find((c) => c.id === id);
     if (cat?.color) return cat.color;
@@ -100,6 +98,18 @@ const CalendarDay = memo(function CalendarDay({
   onDayClick,
   onEventClick,
 }) {
+  const [todayKey, setTodayKey] = useState(null);
+
+  useEffect(() => {
+    setTodayKey(dayjs().tz("Europe/Berlin").format("YYYY-MM-DD"));
+  }, []);
+
+  const dayKey = dayjs(day.date.toDate?.() ?? day.date)
+    .tz("Europe/Berlin")
+    .format("YYYY-MM-DD");
+
+  const todayFlag = todayKey === dayKey;
+
   const handleDayClick = useCallback(() => {
     if (isEnabled) onDayClick(day.date);
   }, [isEnabled, onDayClick, day.date]);
@@ -110,7 +120,7 @@ const CalendarDay = memo(function CalendarDay({
       $isCurrentMonth={day.isCurrentMonth}
       $isEnabled={isEnabled}
     >
-      <DayNumber $isToday={isToday(day.date)}>{day.date.date()}</DayNumber>
+      <DayNumber $isToday={todayFlag}>{day.date.date()}</DayNumber>
 
       {events.map((event) => (
         <Event
