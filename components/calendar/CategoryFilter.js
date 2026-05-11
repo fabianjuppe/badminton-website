@@ -119,13 +119,22 @@ const ResetChip = styled.button`
   font-size: 8px;
   font-weight: 900;
   cursor: pointer;
-  border: 1px solid #ff2449;
+  border: 1px solid #d1d5db;
   background: #ffffff;
-  color: #ff2449;
+  color: #374151;
   transition: all 0.15s;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: #ff2449;
+      color: #ff2449;
+    }
+  }
 
   &:active {
     transform: scale(0.95);
+    border-color: #ff2449;
+    color: #ff2449;
   }
 `;
 

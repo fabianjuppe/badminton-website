@@ -115,11 +115,7 @@ export default function Calendar() {
 
   const [selectedCategories, setSelectedCategories] = useLocalStorage(
     "selectedCategories",
-    CATEGORIES.flatMap((cat) =>
-      cat.subcategories?.length
-        ? cat.subcategories.map((sub) => sub.id)
-        : [cat.id]
-    )
+    []
   );
 
   const [isTrashOpen, setIsTrashOpen] = useState(false);
@@ -451,13 +447,7 @@ export default function Calendar() {
   );
 
   const handleReset = useCallback(() => {
-    setSelectedCategories(
-      CATEGORIES.flatMap((cat) =>
-        cat.subcategories?.length
-          ? cat.subcategories.map((sub) => sub.id)
-          : [cat.id]
-      )
-    );
+    setSelectedCategories([]);
   }, [setSelectedCategories]);
 
   return (
