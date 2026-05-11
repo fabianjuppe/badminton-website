@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding: 2px;
 `;
 
 const Grid = styled.div`
