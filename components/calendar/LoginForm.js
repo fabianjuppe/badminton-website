@@ -93,8 +93,14 @@ const SubmitButton = styled.button`
   font-weight: 600;
   cursor: pointer;
 
-  &:hover {
-    background: #0c6474;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #0c6474;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 
@@ -164,7 +170,7 @@ export default function LoginForm({ onClose }) {
     setError("");
 
     const result = await signIn("credentials", {
-      username,
+      username: username.toLowerCase(),
       password,
       redirect: false,
     });
