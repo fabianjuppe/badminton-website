@@ -193,17 +193,53 @@ export default function Calendar() {
   const filteredEvents = useMemo(() => {
     if (selectedCategories.length === 0) return events;
 
-    return events.filter((event) =>
-      event.categories?.some((category) => {
-        if (selectedCategories.includes(category)) return true;
-        const parent = CATEGORIES.find((cat) =>
-          cat.subcategories?.some((sub) => sub.id === category)
-        );
-        if (parent && selectedCategories.includes(parent.id)) return true;
-        return false;
-      })
-    );
+    return events.filter((event) => {
+      return (
+        event.categories?.length > 0 &&
+        matchesFilter(event.categories, selectedCategories)
+      );
+    });
   }, [events, selectedCategories]);
+
+  function matchesFilter(eventCategories, selectedCategories) {
+    if (selectedCategories.length === 0) return true;
+
+    return CATEGORIES.some((cat) => {
+      const selectedInThisCat = selectedCategories.filter((id) =>
+        id.startsWith(cat.id)
+      );
+
+      if (selectedInThisCat.length === 0) return false;
+
+      const eventInThisCat = eventCategories.some((id) =>
+        id.startsWith(cat.id)
+      );
+
+      if (!eventInThisCat) return false;
+
+      if (cat.subcategoryGroups?.length) {
+        return cat.subcategoryGroups.every((group) => {
+          const selectedInGroup = group.subcategories
+            .map((s) => s.id)
+            .filter((id) => selectedCategories.includes(id));
+
+          if (selectedInGroup.length === 0) return true;
+
+          return selectedInGroup.some((id) => eventCategories.includes(id));
+        });
+      }
+
+      const selectedSubs = (cat.subcategories || [])
+        .map((s) => s.id)
+        .filter((id) => selectedCategories.includes(id));
+
+      if (selectedSubs.length === 0) {
+        return selectedCategories.includes(cat.id);
+      }
+
+      return selectedSubs.some((id) => eventCategories.includes(id));
+    });
+  }
 
   const expandedEvents = useMemo(
     () => expandRecurringEvents(filteredEvents, rangeStart, rangeEnd),

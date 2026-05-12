@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
 `;
 
 const ChipGroup = styled.div`
@@ -22,7 +22,7 @@ const ChipRow = styled.div`
 `;
 
 const Chip = styled.button`
-  padding: 4px 12px;
+  padding: 4px 4px 4px 12px;
   border-radius: 999px 0 0 999px;
   font-size: 12px;
   cursor: pointer;
@@ -34,6 +34,7 @@ const Chip = styled.button`
     $isActive ? "#ffffff" : $isPartial ? $color : "#374151"};
 
   &:only-child {
+    padding: 4px 12px;
     border-radius: 999px;
     border-right: 1px solid
       ${({ $isActive, $color }) => ($isActive ? $color : "#d1d5db")};
@@ -52,7 +53,7 @@ const Chip = styled.button`
 `;
 
 const DropdownToggle = styled.button`
-  padding: 4px 8px;
+  padding: 4px 8px 4px 4px;
   border-radius: 0 999px 999px 0;
   font-size: 12px;
   cursor: pointer;
@@ -85,11 +86,11 @@ const Dropdown = styled.div`
   gap: 4px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   z-index: 100;
-  min-width: 140px;
+  min-width: 120px;
 `;
 
 const SubChip = styled.button`
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   font-size: 12px;
   cursor: pointer;
