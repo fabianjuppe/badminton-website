@@ -16,6 +16,7 @@ import LoginForm from "./LoginForm";
 import { CATEGORIES } from "@/lib/categories";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import Trash from "./Trash";
+import ChangePasswordForm from "./ChangePasswordForm";
 
 const EMPTY_FORM = {
   title: "",
@@ -95,6 +96,12 @@ const LoginButton = styled(Button)`
   font-weight: 600;
 `;
 
+const PasswordButton = styled(Button)`
+  border-radius: 999px;
+  font-size: clamp(10px, 1.8vw, 16px);
+  font-weight: 600;
+`;
+
 const TrashButton = styled(Button)`
   border-radius: 999px;
   font-size: clamp(10px, 1.8vw, 16px);
@@ -109,6 +116,8 @@ export default function Calendar() {
   const [form, setForm] = useState(EMPTY_FORM);
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const [isPasswordFormOpen, setIsPasswordFormOpen] = useState(false);
 
   const [direction, setDirection] = useState("next");
   const [animating, setAnimating] = useState(false);
@@ -516,7 +525,6 @@ export default function Calendar() {
         <LoginButton
           type="button"
           onClick={() => (session ? signOut() : setIsLoginOpen(true))}
-          aria-label={session ? "Abmelden" : "Anmelden"}
         >
           {session ? "Abmelden" : "Anmelden"}
         </LoginButton>
@@ -528,11 +536,22 @@ export default function Calendar() {
         )}
 
         {session && (
-          <TrashButton
+          <PasswordButton
             type="button"
-            onClick={() => setIsTrashOpen(true)}
-            aria-label="Papierkorb"
+            onClick={() => setIsPasswordFormOpen(true)}
           >
+            Passwort ändern
+          </PasswordButton>
+        )}
+
+        {isPasswordFormOpen && (
+          <Modal onClose={() => setIsPasswordFormOpen(false)}>
+            <ChangePasswordForm onClose={() => setIsPasswordFormOpen(false)} />
+          </Modal>
+        )}
+
+        {session && (
+          <TrashButton type="button" onClick={() => setIsTrashOpen(true)}>
             Papierkorb
           </TrashButton>
         )}
