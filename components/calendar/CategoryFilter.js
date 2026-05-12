@@ -65,6 +65,7 @@ const DropdownToggle = styled.button`
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       border-color: ${({ $color }) => $color};
+      color: ${({ $color }) => $color};
     }
   }
 
@@ -207,7 +208,7 @@ export default function CategoryFilter({
                   $isActive={isActive || isPartial}
                   $color={category.color}
                   onClick={() => toggleDropdown(category.id)}
-                  aria-label="Unterkategorien"
+                  aria-label="Subcategories"
                 >
                   {isOpen ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
                 </DropdownToggle>
@@ -236,7 +237,7 @@ export default function CategoryFilter({
       <ResetChip
         type="button"
         onClick={onReset}
-        aria-label="Alle Filter deaktivieren"
+        aria-label="Disable all filters"
       >
         ✕
       </ResetChip>
