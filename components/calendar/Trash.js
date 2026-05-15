@@ -76,6 +76,8 @@ const ItemInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
+
+  min-width: 0;
 `;
 
 const ItemTitle = styled.p`
@@ -83,6 +85,10 @@ const ItemTitle = styled.p`
   font-weight: 700;
   color: #108197;
   margin: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const ItemMeta = styled.p`
