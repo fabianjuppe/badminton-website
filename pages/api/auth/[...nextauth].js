@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "@/db/connect";
 import User from "@/db/models/User";
@@ -7,10 +6,6 @@ import bcrypt from "bcryptjs";
 
 export const authOptions = {
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
@@ -23,16 +18,6 @@ export const authOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null;
-
-        /*  TODO: Remove for Release */
-        if (
-          process.env.VERCEL_ENV === "preview" &&
-          credentials.username === "preview" &&
-          credentials.password === "preview"
-        ) {
-          return { id: "preview", name: "preview" };
-        }
-        /* -------------------------- */
 
         await dbConnect();
 
